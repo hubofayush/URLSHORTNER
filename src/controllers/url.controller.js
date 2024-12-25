@@ -26,11 +26,14 @@ const shortIdCreater = asyncHandler(async (req, res) => {
         throw new ApiError(400, "not generated");
     }
 
-    return res
-        .status(200)
-        .json(
-            new ApiResponce(200, { id: id }, "short url generated successfully")
-        );
+    // return res
+    //     .status(200)
+    //     .json(
+    //         new ApiResponce(200, { id: id }, "short url generated successfully")
+    //     );
+    return res.render("Home", {
+        id: id,
+    });
 });
 
 const redirectUrl = asyncHandler(async (req, res) => {
@@ -76,9 +79,13 @@ const analyticsUrl = asyncHandler(async (req, res) => {
 
 const getAll = asyncHandler(async (req, res) => {
     const allurls = await URLSCHEMA.find();
-    return res
-        .status(200)
-        .json(new ApiResponce(200, allurls, "all urls fetched successfully"));
+    // return res
+    //     .status(200)
+    //     .json(new ApiResponce(200, allurls, "all urls fetched successfully"))
+    //     .render()
+    return res.render("Home", {
+        urls: allurls,
+    });
 });
 
 export { shortIdCreater, redirectUrl, analyticsUrl, getAll };
